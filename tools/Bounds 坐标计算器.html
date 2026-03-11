@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bounds 坐标计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f4f8;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    .example {
+      color: #666;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .coordinate-box {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 15px;
+      position: relative;
+    }
+
+    .command-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #2d2d2d;
+      color: #fff;
+      padding: 12px 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .command-text {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-right: 10px;
+    }
+
+    .copy-btn {
+      width: max-content;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s;
+      justify-content: center;
+    }
+
+    .copy-btn:hover {
+      background: #45a049;
+    }
+
+    .copy-btn.copied {
+      background: #2196F3;
+    }
+
+    .copy-btn i {
+      font-size: 16px;
+    }
+
+    .copy-tip {
+      position: absolute;
+      bottom: -30px;
+      right: 0;
+      background: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .copy-tip.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>📱 Bounds 坐标计算器</h2>
+    <p>输入 uiautomator dump 的 bounds 值，计算中心点坐标</p>
+
+    <input type="text" id="boundsInput" placeholder="例如: [120,800][960,1200]" value="[120,800][960,1200]">
+
+    <button onclick="calculateCenter()">计算中心点</button>
+
+    <div class="result" id="result">
+      <div>左上角: <span id="topLeft">(120, 800)</span></div>
+      <div>右下角: <span id="bottomRight">(960, 1200)</span></div>
+      <div style="font-weight: bold; margin-top: 10px;">中心点: <span id="center">(540, 1000)</span></div>
+    </div>
+
+    <div class="coordinate-box">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <strong style="display: block; margin-bottom: 5px;">📋 adb 点击命令:</strong>
+        <button class="copy-btn" id="copyBtn" onclick="copyCommand()">
+          <span id="copyBtnText">📋 复制</span>
+        </button>
+      </div>
+      <div class="command-container" id="commandContainer">
+        <span class="command-text" id="adbCommand">adb shell input tap 540 1000</span>
+      </div>
+      <div id="copyTip" class="copy-tip">已复制到剪贴板！</div>
+    </div>
+
+    <div class="example">
+      <strong>支持多种输入格式:</strong><br>
+      • [120,800][960,1200]<br>
+      • [120,800] [960,1200]<br>
+      • 120,800,960,1200<br>
+      • [120,800] - [960,1200]
+    </div>
+  </div>
+
+  <script>
+    function calculateCenter() {
+      let input = document.getElementById('boundsInput').value.trim();
+
+      // 提取所有数字
+      let numbers = input.match(/\d+/g);
+
+      if (numbers && numbers.length >= 4) {
+        // 取前4个数字
+        let x1 = parseInt(numbers[0]);
+        let y1 = parseInt(numbers[1]);
+        let x2 = parseInt(numbers[2]);
+        let y2 = parseInt(numbers[3]);
+
+        // 确保 x1 < x2, y1 < y2
+        if (x1 > x2) [x1, x2] = [x2, x1];
+        if (y1 > y2) [y1, y2] = [y2, y1];
+
+        // 计算中心点
+        let centerX = Math.round((x1 + x2) / 2);
+        let centerY = Math.round((y1 + y2) / 2);
+
+        // 更新显示
+        document.getElementById('topLeft').textContent = `(${x1}, ${y1})`;
+        document.getElementById('bottomRight').textContent = `(${x2}, ${y2})`;
+        document.getElementById('center').textContent = `(${centerX}, ${centerY})`;
+        document.getElementById('adbCommand').textContent = `adb shell input tap ${centerX} ${centerY}`;
+
+        // 重置复制按钮状态
+        resetCopyButton();
+      } else {
+        alert('请输入有效的 bounds 格式，例如: [120,800][960,1200]');
+      }
+    }
+
+    // 复制命令功能 - 使用浏览器原生方法
+    function copyCommand() {
+      const commandText = document.getElementById('adbCommand').textContent;
+      const copyBtn = document.getElementById('copyBtn');
+      const copyBtnText = document.getElementById('copyBtnText');
+      const copyTip = document.getElementById('copyTip');
+
+      // 浏览器原生复制方法
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        // 使用 Clipboard API
+        navigator.clipboard.writeText(commandText).then(() => {
+          showCopySuccess(copyBtn, copyBtnText, copyTip);
+        }).catch(err => {
+          console.error('复制失败:', err);
+          fallbackCopy(commandText, copyBtn, copyBtnText, copyTip);
+        });
+      } else {
+        // 降级方案：使用 document.execCommand
+        fallbackCopy(commandText, copyBtn, copyBtnText, copyTip);
+      }
+    }
+
+    // 降级复制方法
+    function fallbackCopy(text, copyBtn, copyBtnText, copyTip) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // 对于移动设备
+
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showCopySuccess(copyBtn, copyBtnText, copyTip);
+        } else {
+          alert('复制失败，请手动复制');
+        }
+      } catch (err) {
+        console.error('复制失败:', err);
+        alert('复制失败，请手动复制');
+      }
+
+      document.body.removeChild(textarea);
+    }
+
+    // 显示复制成功状态
+    function showCopySuccess(copyBtn, copyBtnText, copyTip) {
+      // 改变按钮状态
+      copyBtn.classList.add('copied');
+      copyBtnText.innerHTML = '✅ 已复制';
+
+      // 显示提示
+      copyTip.classList.add('show');
+
+      // 2秒后恢复
+      setTimeout(() => {
+        resetCopyButton();
+      }, 2000);
+    }
+
+    // 重置复制按钮
+    function resetCopyButton() {
+      const copyBtn = document.getElementById('copyBtn');
+      const copyBtnText = document.getElementById('copyBtnText');
+      const copyTip = document.getElementById('copyTip');
+
+      copyBtn.classList.remove('copied');
+      copyBtnText.innerHTML = '📋 复制';
+      copyTip.classList.remove('show');
+    }
+
+    // 页面加载时自动计算示例
+    window.onload = calculateCenter;
+
+    // 支持回车键
+    document.getElementById('boundsInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        calculateCenter();
+      }
+    });
+
+    // 点击其他地方时重置复制按钮（可选）
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.copy-btn')) {
+        resetCopyButton();
+      }
+    });
+  </script>
+</body>
+
+</html>

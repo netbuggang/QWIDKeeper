@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<hierarchy rotation="0">
+  <node index="0" text="" resource-id="" class="android.widget.FrameLayout"
+    package="com.tencent.wework" content-desc="" checkable="false" checked="false" clickable="false"
+    enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false"
+    password="false" selected="false" bounds="[0,0][1440,3200]" drawing-order="0" hint="">
+    <node index="0" text="" resource-id="" class="android.widget.LinearLayout"
+      package="com.tencent.wework" content-desc="" checkable="false" checked="false"
+      clickable="false" enabled="true" focusable="false" focused="false" scrollable="false"
+      long-clickable="false" password="false" selected="false" bounds="[0,0][1440,3200]"
+      drawing-order="1" hint="">
+      <node index="0" text="" resource-id="" class="android.widget.FrameLayout"
+        package="com.tencent.wework" content-desc="" checkable="false" checked="false"
+        clickable="false" enabled="true" focusable="false" focused="false" scrollable="false"
+        long-clickable="false" password="false" selected="false" bounds="[0,168][1440,3200]"
+        drawing-order="2" hint="">
+        <node index="0" text="" resource-id="com.tencent.wework:id/ft"
+          class="android.widget.LinearLayout" package="com.tencent.wework" content-desc=""
+          checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+          focused="false" scrollable="false" long-clickable="false" password="false"
+          selected="false" bounds="[0,168][1440,3200]" drawing-order="1" hint="">
+          <node index="0" text="" resource-id="android:id/content"
+            class="android.widget.FrameLayout" package="com.tencent.wework" content-desc=""
+            checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+            focused="false" scrollable="false" long-clickable="false" password="false"
+            selected="false" bounds="[0,168][1440,3200]" drawing-order="2" hint="">
+            <node index="0" text="" resource-id="com.tencent.wework:id/lb9"
+              class="android.widget.RelativeLayout" package="com.tencent.wework" content-desc=""
+              checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+              focused="false" scrollable="false" long-clickable="false" password="false"
+              selected="false" bounds="[0,168][1440,3200]" drawing-order="1" hint="">
+              <node NAF="true" index="0" text="" resource-id="com.tencent.wework:id/hsb"
+                class="android.widget.RelativeLayout" package="com.tencent.wework" content-desc=""
+                checkable="false" checked="false" clickable="true" enabled="true" focusable="true"
+                focused="false" scrollable="false" long-clickable="false" password="false"
+                selected="false" bounds="[0,168][1440,1575]" drawing-order="1" hint="">
+                <node index="0" text="" resource-id="com.tencent.wework:id/lie"
+                  class="android.widget.RelativeLayout" package="com.tencent.wework" content-desc=""
+                  checkable="false" checked="false" clickable="false" enabled="true"
+                  focusable="false" focused="false" scrollable="false" long-clickable="false"
+                  password="false" selected="false" bounds="[0,168][1440,1575]" drawing-order="1"
+                  hint="">
+                  <node index="0" text="" resource-id="com.tencent.wework:id/g2k"
+                    class="androidx.viewpager.widget.ViewPager" package="com.tencent.wework"
+                    content-desc="" checkable="false" checked="false" clickable="false"
+                    enabled="true" focusable="true" focused="false" scrollable="false"
+                    long-clickable="false" password="false" selected="false"
+                    bounds="[0,168][1440,1575]" drawing-order="1" hint="">
+                    <node index="0" text="" resource-id="" class="android.widget.LinearLayout"
+                      package="com.tencent.wework" content-desc="" checkable="false" checked="false"
+                      clickable="false" enabled="true" focusable="false" focused="false"
+                      scrollable="false" long-clickable="false" password="false" selected="false"
+                      bounds="[0,168][1440,1575]" drawing-order="1" hint="">
+                      <node index="0" text="" resource-id="com.tencent.wework:id/mfa"
+                        class="android.widget.ImageView" package="com.tencent.wework"
+                        content-desc="" checkable="false" checked="false" clickable="false"
+                        enabled="true" focusable="false" focused="false" scrollable="false"
+                        long-clickable="false" password="false" selected="false"
+                        bounds="[0,168][1440,1299]" drawing-order="1" hint="" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node NAF="true" index="1" text="" resource-id="com.tencent.wework:id/npe"
+                class="android.widget.RelativeLayout" package="com.tencent.wework" content-desc=""
+                checkable="false" checked="false" clickable="true" enabled="true" focusable="true"
+                focused="false" scrollable="false" long-clickable="false" password="false"
+                selected="false" bounds="[0,168][1440,357]" drawing-order="2" hint="" />
+              <node index="2" text="" resource-id="com.tencent.wework:id/hrc"
+                class="android.widget.LinearLayout" package="com.tencent.wework" content-desc=""
+                checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+                focused="false" scrollable="false" long-clickable="false" password="false"
+                selected="false" bounds="[84,2614][1356,2782]" drawing-order="3" hint="">
+                <node index="0" text="微信登录" resource-id="com.tencent.wework:id/asd"
+                  class="android.widget.Button" package="com.tencent.wework" content-desc=""
+                  checkable="false" checked="false" clickable="true" enabled="true" focusable="true"
+                  focused="false" scrollable="false" long-clickable="false" password="false"
+                  selected="false" bounds="[84,2614][1356,2782]" drawing-order="1" hint="" />
+              </node>
+              <node index="3" text="" resource-id="com.tencent.wework:id/cxj"
+                class="android.widget.FrameLayout" package="com.tencent.wework" content-desc=""
+                checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+                focused="false" scrollable="false" long-clickable="false" password="false"
+                selected="false" bounds="[84,2835][1356,2993]" drawing-order="5" hint="">
+                <node index="0" text="手机号登录" resource-id="com.tencent.wework:id/b6i"
+                  class="android.widget.TextView" package="com.tencent.wework" content-desc=""
+                  checkable="false" checked="false" clickable="true" enabled="true" focusable="true"
+                  focused="false" scrollable="false" long-clickable="false" password="false"
+                  selected="false" bounds="[457,2835][982,2993]" drawing-order="1" hint="" />
+              </node>
+              <node index="4" text="" resource-id="com.tencent.wework:id/p9"
+                class="android.widget.LinearLayout" package="com.tencent.wework" content-desc=""
+                checkable="false" checked="false" clickable="false" enabled="true" focusable="false"
+                focused="false" scrollable="false" long-clickable="false" password="false"
+                selected="false" bounds="[238,3004][1202,3172]" drawing-order="6" hint="">
+                <node NAF="true" index="0" text="" resource-id="com.tencent.wework:id/p6"
+                  class="android.widget.ImageView" package="com.tencent.wework" content-desc=""
+                  checkable="false" checked="false" clickable="true" enabled="true" focusable="true"
+                  focused="false" scrollable="false" long-clickable="false" password="false"
+                  selected="false" bounds="[238,3004][326,3172]" drawing-order="1" hint="" />
+                <node index="1" text="已阅读并同意 软件许可及服务协议 和 隐私政策"
+                  resource-id="com.tencent.wework:id/ko6" class="android.widget.TextView"
+                  package="com.tencent.wework" content-desc="" checkable="false" checked="false"
+                  clickable="false" enabled="true" focusable="true" focused="false"
+                  scrollable="false" long-clickable="false" password="false" selected="false"
+                  bounds="[326,3060][1202,3116]" drawing-order="2" hint="" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+</hierarchy>
