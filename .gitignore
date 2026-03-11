@@ -1,0 +1,51 @@
+# ===== 项目自定义 =====
+# shell目录下所有xml文件不上传
+shell/**/*.xml
+
+# ===== macOS =====
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ===== IDE / 编辑器 =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ===== 日志文件 =====
+*.log
+logs/
+
+# ===== Node.js =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ===== 临时文件 =====
+*.tmp
+*.temp
+*.bak
+*.orig
+tmp/
+temp/
+
+# ===== 压缩文件 =====
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ===== 环境变量 =====
+.env
+.env.local
+.env.*.local

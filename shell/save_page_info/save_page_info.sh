@@ -199,9 +199,39 @@ analyze_xml() {
         echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}" >&2
     fi
     
-    # 提取所有控件ID
-    local ids=$(grep -o 'resource-id="[^"]*"' "$xml_file" | sed 's/resource-id="//g' | sed 's/"//g' | sort -u)
-    local id_count=$(echo "$ids" | grep -v '^$' | wc -l | tr -d ' ')
+    # 提取所有控件ID及其对应的text
+    # 使用awk从每个node节点中同时提取 resource-id 和 text，按resource-id去重
+    local id_text_pairs=$(awk '
+    {
+        # 将整行按node标签拆分，逐个处理
+        line = $0
+        while (match(line, /<node [^>]*>/)) {
+            node = substr(line, RSTART, RLENGTH)
+            line = substr(line, RSTART + RLENGTH)
+            
+            # 提取 resource-id
+            rid = ""
+            if (match(node, /resource-id="[^"]*"/)) {
+                rid = substr(node, RSTART + 13, RLENGTH - 14)
+            }
+            
+            # 跳过空的 resource-id
+            if (rid == "") continue
+            
+            # 提取 text
+            txt = ""
+            if (match(node, /text="[^"]*"/)) {
+                txt = substr(node, RSTART + 6, RLENGTH - 7)
+            }
+            
+            # 去重：只保留第一次出现的resource-id
+            if (!(rid in seen)) {
+                seen[rid] = 1
+                print rid "\t" txt
+            }
+        }
+    }' "$xml_file" | sort -t$'\t' -k1,1)
+    local id_count=$(echo "$id_text_pairs" | grep -v '^$' | wc -l | tr -d ' ')
     
     if [[ "$SILENT_MODE" == false ]]; then
         echo -e "${YELLOW}发现 $id_count 个控件ID:${NC}" >&2
@@ -209,14 +239,18 @@ analyze_xml() {
     
     if [[ $id_count -gt 0 ]]; then
         if [[ "$SILENT_MODE" == false ]]; then
-            echo "$ids" | while read id; do
+            echo "$id_text_pairs" | while IFS=$'\t' read -r id text; do
                 if [[ -n "$id" ]]; then
-                    echo -e "  ${GREEN}•${NC} $id" >&2
+                    if [[ -n "$text" ]]; then
+                        echo -e "  ${GREEN}•${NC} $id  ${PURPLE}[${text}]${NC}" >&2
+                    else
+                        echo -e "  ${GREEN}•${NC} $id  ${YELLOW}[无文本]${NC}" >&2
+                    fi
                 fi
             done
         else
-            # 静默模式输出到 stdout
-            echo "$ids" | grep -v '^$'
+            # 静默模式输出到 stdout（格式: id\ttext）
+            echo "$id_text_pairs" | grep -v '^$'
         fi
     else
         if [[ "$SILENT_MODE" == false ]]; then
