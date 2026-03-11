@@ -49,6 +49,9 @@ sudo mv save_page_info.sh /usr/local/bin/
 
 # 指定文件名（不带时间戳）
 ./save_page_info.sh -c login.xml
+
+# 指定保存目录
+./save_page_info.sh -c -d ../../page/5.0.6 -o 手机号登录
 ```
 
 ### 命令行选项
